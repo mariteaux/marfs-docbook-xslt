@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:db="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xsl:output method="html" version="5.0" />
+
+<xsl:template match="/">
+	<xsl:comment>attrib title: <xsl:value-of select="db:chapter/db:info/db:bibliomisc[@role='lc_story_title'] | db:preface/db:info/db:bibliomisc[@role='lc_story_title']" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib description: <xsl:value-of select="db:chapter/db:info/db:abstract | db:preface/db:info/db:abstract" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib og_description: <xsl:value-of select="db:chapter/db:info/db:abstract | db:preface/db:info/db:abstract" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib og_image: http://mariteaux.somnolescent.net/images/thumb/writing.png</xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib storypage: true</xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib canonical: <xsl:value-of select="db:chapter/db:info/db:bibliomisc[@role='canonical'] | db:preface/db:info/db:bibliomisc[@role='canonical']" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib template: default</xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+
+	<h2><xsl:value-of select="db:chapter/db:info/db:title | db:preface/db:info/db:title" /></h2>
+	<xsl:text disable-output-escaping="yes">&#60;hr&#62;</xsl:text>
+	<xsl:apply-templates />
+
+</xsl:template>
+
+<xsl:template match="db:imageobject[@condition='hifi']/db:imagedata[@align='left']">
+	<xsl:text disable-output-escaping="yes">&#60;img src="../</xsl:text>
+	<xsl:value-of select="./@fileref" />
+	<xsl:text disable-output-escaping="yes">" alt="</xsl:text>
+	<xsl:value-of select="../../db:alt" />
+	<xsl:choose>
+		<xsl:when test="./@annotations='border'">
+			<xsl:text disable-output-escaping="yes">" class="leftimg border"</xsl:text>
+		</xsl:when>
+		<xsl:when test="./@annotations='lineart'">
+			<xsl:text disable-output-escaping="yes">" class="leftimg lineart"</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text disable-output-escaping="yes">" class="leftimg"</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text disable-output-escaping="yes">&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:imageobject[@condition='hifi']/db:imagedata[@align='center']">
+	<figure>
+		<xsl:text disable-output-escaping="yes">&#60;img src="../</xsl:text>
+		<xsl:value-of select="./@fileref" />
+		<xsl:text disable-output-escaping="yes">" alt="</xsl:text>
+		<xsl:value-of select="../../db:alt" />
+		<xsl:choose>
+			<xsl:when test="./@annotations='border'">
+				<xsl:text disable-output-escaping="yes">" class="border"</xsl:text>
+			</xsl:when>
+			<xsl:when test="./@annotations='lineart'">
+				<xsl:text disable-output-escaping="yes">" class="lineart"</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text disable-output-escaping="yes">"</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text disable-output-escaping="yes">&#62;</xsl:text>
+	</figure>
+</xsl:template>
+
+<xsl:template match="db:imageobject[@condition='hifi']/db:imagedata[@align='right']">
+	<xsl:text disable-output-escaping="yes">&#60;img src="../</xsl:text>
+	<xsl:value-of select="./@fileref" />
+	<xsl:text disable-output-escaping="yes">" alt="</xsl:text>
+	<xsl:value-of select="../../db:alt" />
+	<xsl:choose>
+		<xsl:when test="./@annotations='border'">
+			<xsl:text disable-output-escaping="yes">" class="rightimg border"</xsl:text>
+		</xsl:when>
+		<xsl:when test="./@annotations='lineart'">
+			<xsl:text disable-output-escaping="yes">" class="rightimg lineart"</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text disable-output-escaping="yes">" class="rightimg"</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text disable-output-escaping="yes">&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:bibliomisc | db:titleabbrev | db:alt | db:info | db:imageobject[@condition='nofi'] | db:imageobject[@condition='lofi']">
+</xsl:template>
+
+<xsl:template match="db:chapter/db:info/db:title | db:preface/db:title">
+	<h2><xsl:apply-templates /></h2>
+	<xsl:text disable-output-escaping="yes">&#60;hr&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:preface/db:para">
+	<p class="textcenter"><i><xsl:apply-templates /></i></p>
+</xsl:template>
+
+<xsl:template match="db:chapter/db:para">
+	<p><xsl:apply-templates /></p>
+</xsl:template>
+
+<xsl:template match="db:emphasis">
+	<em><xsl:apply-templates /></em>
+</xsl:template>
+
+<xsl:template match="db:link">
+	<xsl:text disable-output-escaping="yes">&#60;a href="</xsl:text>
+	<xsl:value-of select="./@xlink:href" />
+	<xsl:text disable-output-escaping="yes">"&#62;</xsl:text>
+	<xsl:apply-templates />
+	<xsl:text disable-output-escaping="yes">&#60;/a&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:toc">
+	<table class="textcenter">
+		<colgroup>
+			<xsl:text disable-output-escaping="yes">&#60;col style="width: 33%;"&#62;</xsl:text>
+			<xsl:text disable-output-escaping="yes">&#60;col style="width: 33%;"&#62;</xsl:text>
+			<xsl:text disable-output-escaping="yes">&#60;col style="width: 33%;"&#62;</xsl:text>
+		</colgroup>
+		<xsl:apply-templates />
+	</table>
+</xsl:template>
+
+<xsl:template match="db:toc/db:title">
+	<tr>
+		<td colspan="3">
+			<h3><xsl:apply-templates /></h3>
+		</td>
+	</tr>
+</xsl:template>
+
+<xsl:template match="db:tocdiv">
+	<tr>
+		<xsl:apply-templates />
+	</tr>
+</xsl:template>
+
+<xsl:template match="db:toc/db:tocdiv/db:tocentry">
+	<td>
+		<xsl:apply-templates />
+	</td>
+</xsl:template>
+
+<!-- Character dialogue and thought colors -->
+
+<xsl:template match="db:quote">
+	<xsl:text disable-output-escaping="yes">&#60;q class="dialogue </xsl:text>
+	<xsl:value-of select="./@annotations" />
+	<xsl:text disable-output-escaping="yes">"&#62;</xsl:text>
+	<xsl:apply-templates />
+	<xsl:text disable-output-escaping="yes">&#60;/q&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:phrase">
+	<xsl:text disable-output-escaping="yes">&#60;span class="dialogue </xsl:text>
+	<xsl:value-of select="./@annotations" />
+	<xsl:text disable-output-escaping="yes">"&#62;</xsl:text>
+	<xsl:apply-templates />
+	<xsl:text disable-output-escaping="yes">&#60;/span&#62;</xsl:text>
+</xsl:template>
+
+</xsl:stylesheet>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:db="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xsl:output method="html" version="3.2" />
+
+<xsl:template match="/">
+	<xsl:comment>attrib lc_title: <xsl:value-of select="db:chapter/db:info/db:titleabbrev | db:preface/db:info/db:titleabbrev" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib uc_title: <xsl:value-of select="db:chapter/db:info/db:title | db:preface/db:info/db:title" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib lc_story_title: <xsl:value-of select="db:chapter/db:info/db:bibliomisc[@role='lc_story_title'] | db:preface/db:info/db:bibliomisc[@role='lc_story_title']" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib uc_story_title: <xsl:value-of select="db:chapter/db:info/db:bibliomisc[@role='uc_story_title'] | db:preface/db:info/db:bibliomisc[@role='uc_story_title']" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib story_index: <xsl:value-of select="db:chapter/db:info/db:bibliomisc[@role='story_index'] | db:preface/db:info/db:bibliomisc[@role='story_index']" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib description: <xsl:value-of select="db:chapter/db:info/db:abstract | db:preface/db:info/db:abstract" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib canonical: <xsl:value-of select="db:chapter/db:info/db:bibliomisc[@role='canonical'] | db:preface/db:info/db:bibliomisc[@role='canonical']" /></xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib storypage: true</xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	<xsl:comment>attrib template: writing</xsl:comment>
+	<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+
+	<xsl:apply-templates />
+</xsl:template>
+
+<xsl:template match="db:imageobject[@condition='nofi']/db:imagedata[@align='left']">
+	<xsl:text disable-output-escaping="yes">&#60;img src="../</xsl:text>
+	<xsl:value-of select="./@fileref" />
+	<xsl:text disable-output-escaping="yes">" alt="</xsl:text>
+	<xsl:value-of select="../../db:alt" />
+	<xsl:text disable-output-escaping="yes">" width="</xsl:text>
+	<xsl:value-of select="./@contentwidth" />
+	<xsl:text disable-output-escaping="yes">" height="</xsl:text>
+	<xsl:value-of select="./@contentdepth" />
+	<xsl:if test="./@annotations='border'">
+		<xsl:text disable-output-escaping="yes">" border="1</xsl:text>
+	</xsl:if>
+	<xsl:text disable-output-escaping="yes">" align="left"&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:imageobject[@condition='nofi']/db:imagedata[@align='center']">
+	<xsl:text disable-output-escaping="yes">&#60;center&#62;&#60;img src="../</xsl:text>
+	<xsl:value-of select="./@fileref" />
+	<xsl:text disable-output-escaping="yes">" alt="</xsl:text>
+	<xsl:value-of select="../../db:alt" />
+	<xsl:text disable-output-escaping="yes">" width="</xsl:text>
+	<xsl:value-of select="./@contentwidth" />
+	<xsl:text disable-output-escaping="yes">" height="</xsl:text>
+	<xsl:value-of select="./@contentdepth" />
+	<xsl:if test="./@annotations='border'">
+		<xsl:text disable-output-escaping="yes">" border="1</xsl:text>
+	</xsl:if>
+	<xsl:text disable-output-escaping="yes">"&#62;&#60;/center&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:imageobject[@condition='nofi']/db:imagedata[@align='right']">
+	<xsl:text disable-output-escaping="yes">&#60;img src="../</xsl:text>
+	<xsl:value-of select="./@fileref" />
+	<xsl:text disable-output-escaping="yes">" alt="</xsl:text>
+	<xsl:value-of select="../../db:alt" />
+	<xsl:text disable-output-escaping="yes">" width="</xsl:text>
+	<xsl:value-of select="./@contentwidth" />
+	<xsl:text disable-output-escaping="yes">" height="</xsl:text>
+	<xsl:value-of select="./@contentdepth" />
+	<xsl:if test="./@annotations='border'">
+		<xsl:text disable-output-escaping="yes">" border="1</xsl:text>
+	</xsl:if>
+	<xsl:text disable-output-escaping="yes">" align="right"&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:bibliomisc | db:titleabbrev | db:alt | db:info | db:imageobject[@condition='lofi'] | db:imageobject[@condition='hifi']">
+</xsl:template>
+
+<xsl:template match="db:chapter/db:info/db:title | db:preface/db:title">
+	<xsl:text disable-output-escaping="yes">&#60;br clear="all"&#62;</xsl:text>
+	<h2 align="center"><xsl:apply-templates /></h2>
+	<xsl:text disable-output-escaping="yes">&#60;hr width="50%"&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:preface/db:para">
+	<p align="center"><i><xsl:apply-templates /></i></p>
+</xsl:template>
+
+<xsl:template match="db:chapter/db:para">
+	<p><xsl:apply-templates /></p>
+</xsl:template>
+
+<xsl:template match="db:phrase">
+	<i><xsl:apply-templates /></i>
+</xsl:template>
+
+<xsl:template match="db:emphasis">
+	<em><xsl:apply-templates /></em>
+</xsl:template>
+
+<xsl:template match="db:link">
+	<xsl:text disable-output-escaping="yes">&#60;a href="</xsl:text>
+	<xsl:value-of select="./@xlink:href" />
+	<xsl:text disable-output-escaping="yes">"&#62;</xsl:text>
+	<xsl:apply-templates />
+	<xsl:text disable-output-escaping="yes">&#60;/a&#62;</xsl:text>
+</xsl:template>
+
+<xsl:template match="db:toc">
+	<xsl:text disable-output-escaping="yes">&#60;br clear="all"&#62;&#13;&#60;hr width="50%"&#62;&#13;</xsl:text>
+	<center>
+		<xsl:apply-templates />
+	</center>
+</xsl:template>
+
+<xsl:template match="db:toc/db:title">
+	<h3><xsl:apply-templates /></h3>
+</xsl:template>
+
+<xsl:template match="db:toc/db:tocentry">
+	<xsl:apply-templates />
+</xsl:template>
+
+<!-- Character dialogue colors -->
+
+<!-- grey -->
+<xsl:template match="db:quote[@annotations='grey']">
+	<font color="#CCCCCC">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<xsl:template match="db:quote[@annotations='red']">
+	<font color="#FF9999">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<xsl:template match="db:quote[@annotations='orange'] | db:quote[@annotations='gonzo']">
+	<font color="#FF9900">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<xsl:template match="db:quote[@annotations='gold'] | db:quote[@annotations='hasan']">
+	<font color="#FFCC66">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<xsl:template match="db:quote[@annotations='asparagus'] | db:quote[@annotations='kevin']">
+	<font color="#CCCC33">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<xsl:template match="db:quote[@annotations='cyan']">
+	<font color="#CCFFFF">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<xsl:template match="db:quote[@annotations='green'] | db:quote[@annotations='theophrastus']">
+	<font color="#99CC99">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<xsl:template match="db:quote[@annotations='purple']">
+	<font color="#996699">"<xsl:apply-templates />"</font>
+</xsl:template>
+
+<!-- Character thought colors -->
+<xsl:template match="db:phrase[@annotations='grey']">
+	<font color="#CCCCCC"><xsl:apply-templates /></font>
+</xsl:template>
+
+<xsl:template match="db:phrase[@annotations='red']">
+	<font color="#FF9999"><xsl:apply-templates /></font>
+</xsl:template>
+
+<xsl:template match="db:phrase[@annotations='orange'] | db:phrase[@annotations='gonzo']">
+	<font color="#FF9900"><xsl:apply-templates /></font>
+</xsl:template>
+
+<xsl:template match="db:phrase[@annotations='gold'] | db:phrase[@annotations='hasan']">
+	<font color="#FFCC66"><xsl:apply-templates /></font>
+</xsl:template>
+
+<xsl:template match="db:phrase[@annotations='asparagus'] | db:phrase[@annotations='kevin']">
+	<font color="#CCCC33"><xsl:apply-templates /></font>
+</xsl:template>
+
+<xsl:template match="db:phrase[@annotations='cyan']">
+	<font color="#CCFFFF"><xsl:apply-templates /></font>
+</xsl:template>
+
+<xsl:template match="db:phrase[@annotations='green'] | db:phrase[@annotations='theophrastus']">
+	<font color="#99CC99"><xsl:apply-templates /></font>
+</xsl:template>
+
+<xsl:template match="db:phrase[@annotations='purple']">
+	<font color="#996699"><xsl:apply-templates /></font>
+</xsl:template>
+
+</xsl:stylesheet>
