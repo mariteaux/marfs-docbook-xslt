@@ -70,7 +70,7 @@
 	<xsl:text disable-output-escaping="yes">" align="right"&#62;</xsl:text>
 </xsl:template>
 
-<xsl:template match="db:bibliomisc | db:titleabbrev | db:alt | db:info | db:imageobject[@condition='lofi'] | db:imageobject[@condition='hifi']">
+<xsl:template match="db:bibliomisc | db:titleabbrev | db:alt | db:info | db:orderedlist/db:title | db:itemizedlist/db:title | db:imageobject[@condition='lofi'] | db:imageobject[@condition='hifi']">
 </xsl:template>
 
 <xsl:template match="db:chapter/db:info/db:title | db:preface/db:title">
@@ -93,6 +93,34 @@
 
 <xsl:template match="db:emphasis">
 	<em><xsl:apply-templates /></em>
+</xsl:template>
+
+<xsl:template match="db:orderedlist">
+	<xsl:if test="./db:title">
+		<h3><xsl:value-of select="./db:title" /></h3>
+		<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	</xsl:if>
+	<ol><xsl:apply-templates /></ol>
+</xsl:template>
+
+<xsl:template match="db:itemizedlist">
+	<xsl:if test="./db:title">
+		<h3><xsl:value-of select="./db:title" /></h3>
+		<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	</xsl:if>
+	<ul><xsl:apply-templates /></ul>
+</xsl:template>
+
+<xsl:template match="db:listitem">
+	<li><xsl:apply-templates /></li>
+</xsl:template>
+
+<xsl:template match="db:blockquote">
+	<blockquote><xsl:apply-templates /></blockquote>
+</xsl:template>
+
+<xsl:template match="db:literallayout">
+	<pre><xsl:apply-templates /></pre>
 </xsl:template>
 
 <xsl:template match="db:link">
@@ -125,15 +153,15 @@
 	<font color="#CCCCCC">"<xsl:apply-templates />"</font>
 </xsl:template>
 
-<xsl:template match="db:quote[@annotations='red']">
+<xsl:template match="db:quote[@annotations='red'] | db:quote[@annotations='miki']">
 	<font color="#FF9999">"<xsl:apply-templates />"</font>
 </xsl:template>
 
-<xsl:template match="db:quote[@annotations='orange'] | db:quote[@annotations='gonzo']">
+<xsl:template match="db:quote[@annotations='orange'] | db:quote[@annotations='gonzo'] | db:quote[@annotations='mia']">
 	<font color="#FF9900">"<xsl:apply-templates />"</font>
 </xsl:template>
 
-<xsl:template match="db:quote[@annotations='gold'] | db:quote[@annotations='hasan']">
+<xsl:template match="db:quote[@annotations='gold'] | db:quote[@annotations='hasan'] | db:quote[@annotations='roland']">
 	<font color="#FFCC66">"<xsl:apply-templates />"</font>
 </xsl:template>
 
@@ -141,15 +169,15 @@
 	<font color="#CCCC33">"<xsl:apply-templates />"</font>
 </xsl:template>
 
-<xsl:template match="db:quote[@annotations='cyan']">
+<xsl:template match="db:quote[@annotations='cyan'] | db:quote[@annotations='gilbert'] | db:quote[@annotations='felix']">
 	<font color="#CCFFFF">"<xsl:apply-templates />"</font>
 </xsl:template>
 
-<xsl:template match="db:quote[@annotations='green'] | db:quote[@annotations='theophrastus']">
+<xsl:template match="db:quote[@annotations='green'] | db:quote[@annotations='theophrastus'] | db:quote[@annotations='phineas']">
 	<font color="#99CC99">"<xsl:apply-templates />"</font>
 </xsl:template>
 
-<xsl:template match="db:quote[@annotations='purple']">
+<xsl:template match="db:quote[@annotations='purple'] | db:quote[@annotations='hazel']">
 	<font color="#996699">"<xsl:apply-templates />"</font>
 </xsl:template>
 
@@ -158,15 +186,15 @@
 	<font color="#CCCCCC"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='red']">
+<xsl:template match="db:phrase[@annotations='red'] | db:phrase[@annotations='miki']">
 	<font color="#FF9999"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='orange'] | db:phrase[@annotations='gonzo']">
+<xsl:template match="db:phrase[@annotations='orange'] | db:phrase[@annotations='gonzo' | db:phrase[@annotations='mia']">
 	<font color="#FF9900"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='gold'] | db:phrase[@annotations='hasan']">
+<xsl:template match="db:phrase[@annotations='gold'] | db:phrase[@annotations='hasan'] | db:phrase[@annotations='roland']">
 	<font color="#FFCC66"><xsl:apply-templates /></font>
 </xsl:template>
 
@@ -174,15 +202,15 @@
 	<font color="#CCCC33"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='cyan']">
+<xsl:template match="db:phrase[@annotations='cyan'] | db:phrase[@annotations='gilbert'] | db:phrase[@annotations='felix']">
 	<font color="#CCFFFF"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='green'] | db:phrase[@annotations='theophrastus']">
+<xsl:template match="db:phrase[@annotations='green'] | db:phrase[@annotations='theophrastus'] | db:phrase[@annotations='phineas']">
 	<font color="#99CC99"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='purple']">
+<xsl:template match="db:phrase[@annotations='purple'] | db:phrase[@annotations='hazel']">
 	<font color="#996699"><xsl:apply-templates /></font>
 </xsl:template>
 

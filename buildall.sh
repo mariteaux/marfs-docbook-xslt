@@ -26,6 +26,7 @@ echo "hifi AutoSite pages built."
 echo "Cleaning output pages..."
 find . -type f -name '*.html' -print0 | xargs -0 sed -i 1d
 find . -type f -name '*.html' -print0 | xargs -0 sed -i 's/ xmlns:db="http:\/\/docbook.org\/ns\/docbook" xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"//'
+find . -type f -name '*.html' -ipath "*output/nofi*" -print0 | xargs -0 sed -i 's/—/--/'
 echo "Output pages cleansed."
 
 # rename output folders and move preface index for nofi

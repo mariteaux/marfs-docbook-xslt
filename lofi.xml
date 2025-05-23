@@ -97,7 +97,7 @@
 	<xsl:text disable-output-escaping="yes">&#62;</xsl:text>
 </xsl:template>
 
-<xsl:template match="db:bibliomisc | db:titleabbrev | db:alt | db:info | db:imageobject[@condition='nofi'] | db:imageobject[@condition='hifi']">
+<xsl:template match="db:bibliomisc | db:titleabbrev | db:alt | db:info | db:orderedlist/db:title | db:itemizedlist/db:title | db:imageobject[@condition='nofi'] | db:imageobject[@condition='hifi']">
 </xsl:template>
 
 <xsl:template match="db:chapter/db:info/db:title | db:preface/db:title">
@@ -113,8 +113,40 @@
 	<p><xsl:apply-templates /></p>
 </xsl:template>
 
+<xsl:template match="db:phrase">
+	<i><xsl:apply-templates /></i>
+</xsl:template>
+
 <xsl:template match="db:emphasis">
 	<em><xsl:apply-templates /></em>
+</xsl:template>
+
+<xsl:template match="db:orderedlist">
+	<xsl:if test="./db:title">
+		<h3><xsl:value-of select="./db:title" /></h3>
+		<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	</xsl:if>
+	<ol><xsl:apply-templates /></ol>
+</xsl:template>
+
+<xsl:template match="db:itemizedlist">
+	<xsl:if test="./db:title">
+		<h3><xsl:value-of select="./db:title" /></h3>
+		<xsl:text disable-output-escaping="yes">&#13;</xsl:text>
+	</xsl:if>
+	<ul><xsl:apply-templates /></ul>
+</xsl:template>
+
+<xsl:template match="db:listitem">
+	<li><xsl:apply-templates /></li>
+</xsl:template>
+
+<xsl:template match="db:blockquote">
+	<blockquote><xsl:apply-templates /></blockquote>
+</xsl:template>
+
+<xsl:template match="db:literallayout">
+	<pre class="lyrics"><xsl:apply-templates /></pre>
 </xsl:template>
 
 <xsl:template match="db:link">
