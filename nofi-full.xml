@@ -87,6 +87,10 @@
 	<em><xsl:apply-templates /></em>
 </xsl:template>
 
+<xsl:template match="db:bridgehead">
+	<xsl:text disable-output-escaping="yes">&#60;hr align="left" width="35%"&#62;</xsl:text>
+</xsl:template>
+
 <xsl:template match="db:orderedlist">
 	<xsl:if test="./db:title">
 		<h3><xsl:value-of select="./db:title" /></h3>
@@ -146,7 +150,7 @@
 	<font color="#CCCC33">"<xsl:apply-templates />"</font>
 </xsl:template>
 
-<xsl:template match="db:quote[@annotations='cyan'] | db:quote[@annotations='gilbert'] | db:quote[@annotations='felix']">
+<xsl:template match="db:quote[@annotations='teal'] | db:quote[@annotations='gilbert'] | db:quote[@annotations='felix']">
 	<font color="#CCFFFF">"<xsl:apply-templates />"</font>
 </xsl:template>
 
@@ -167,7 +171,7 @@
 	<font color="#FF9999"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='orange'] | db:phrase[@annotations='gonzo' | db:phrase[@annotations='mia']">
+<xsl:template match="db:phrase[@annotations='orange'] | db:phrase[@annotations='gonzo'] | db:phrase[@annotations='mia']">
 	<font color="#FF9900"><xsl:apply-templates /></font>
 </xsl:template>
 
@@ -179,7 +183,7 @@
 	<font color="#CCCC33"><xsl:apply-templates /></font>
 </xsl:template>
 
-<xsl:template match="db:phrase[@annotations='cyan'] | db:phrase[@annotations='gilbert'] | db:phrase[@annotations='felix']">
+<xsl:template match="db:phrase[@annotations='teal'] | db:phrase[@annotations='gilbert'] | db:phrase[@annotations='felix']">
 	<font color="#CCFFFF"><xsl:apply-templates /></font>
 </xsl:template>
 

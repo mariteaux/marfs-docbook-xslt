@@ -84,7 +84,7 @@
 <xsl:template match="db:book/db:info/db:author | db:bibliomisc | db:titleabbrev | db:alt | db:abstract | db:title | db:toc | db:preface | db:imageobject[@condition='nofi'] | db:imageobject[@condition='lofi']">
 </xsl:template>
 
-<xsl:template match="db:chapter/db:info/db:title | db:preface/db:title">
+<xsl:template match="db:chapter/db:info/db:titleabbrev | db:preface/db:titleabbrev">
 	<h2><xsl:apply-templates /></h2>
 	<xsl:text disable-output-escaping="yes">&#60;hr&#62;</xsl:text>
 </xsl:template>
@@ -99,6 +99,10 @@
 
 <xsl:template match="db:emphasis">
 	<em><xsl:apply-templates /></em>
+</xsl:template>
+
+<xsl:template match="db:bridgehead">
+	<xsl:text disable-output-escaping="yes">&#60;hr&#62;</xsl:text>
 </xsl:template>
 
 <xsl:template match="db:orderedlist">

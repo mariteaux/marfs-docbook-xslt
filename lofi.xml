@@ -100,6 +100,10 @@
 <xsl:template match="db:bibliomisc | db:titleabbrev | db:alt | db:info | db:orderedlist/db:title | db:itemizedlist/db:title | db:imageobject[@condition='nofi'] | db:imageobject[@condition='hifi']">
 </xsl:template>
 
+<xsl:template match="db:preface">
+	<div class="centertext"><xsl:apply-templates /></div>
+</xsl:template>
+
 <xsl:template match="db:chapter/db:info/db:title | db:preface/db:title">
 	<h2><xsl:apply-templates /></h2>
 	<xsl:text disable-output-escaping="yes">&#60;hr&#62;</xsl:text>
@@ -119,6 +123,10 @@
 
 <xsl:template match="db:emphasis">
 	<em><xsl:apply-templates /></em>
+</xsl:template>
+
+<xsl:template match="db:bridgehead">
+	<xsl:text disable-output-escaping="yes">&#60;hr&#62;</xsl:text>
 </xsl:template>
 
 <xsl:template match="db:orderedlist">
